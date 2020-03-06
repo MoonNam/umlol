@@ -2,6 +2,7 @@ import bs4
 import discord
 import requests
 from bs4 import BeautifulSoup
+import os
 
 client = discord.Client()
 
@@ -118,4 +119,5 @@ async def on_message(message, value=None):
             await message.channel.send("정보를 불러올 수 없어요!\n" +
                                        "솔로랭크 또는 자유랭크 배치를 보지 않은 소환사에요")
 
-client.run("Njg1NTUxNjIxNTUxMjkyNDQ4.XmKTuQ.0ukjJQTsJNfdVHBtaWp33mLkZ_c")
+access_token = os.environ["BOT_TOKEN"]
+client.run(access_token)
