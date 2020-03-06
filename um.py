@@ -12,11 +12,71 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print("------------------")
-    game = discord.Game("롤 전적 검색")
+    game = discord.Game("전적 검색")
     await client.change_presence(status=discord.Status.online, activity=game)
 
 @client.event
 async def on_message(message, value=None):
+    if message.content.startswith("/레식"):
+        learn1 = message.content.split(" ")
+        learn = learn1[1]
+        name = learn
+        enc_name = urllib.parse.quote(name)
+        url = "https://r6.tracker.network/profile/pc/" + enc_name
+        html = requests.get(url)
+        bs = BeautifulSoup(html.text, "html.parser")
+        bs_value = bs.find_all("div", {"class": "trn-defstat__value"})
+
+        embed = discord.Embed(
+            title=learn + '님 레인보우 식스 전적',
+            description=learn,
+            colour=discord.Colour.gold()
+        )
+
+        lvl1 = bs_value[0]
+        lvl2 = lvl1.text
+        print(lvl2)
+        embed.add_field(name='레벨', value=lvl2, inline=False)
+
+        high_mmr1 = bs_value[1]
+        high_mmr2 = high_mmr1.text
+        print(high_mmr2)
+        embed.add_field(name='최고 MMR', value=high_mmr2, inline=False)
+
+        rank = bs_value[2]
+        rank = rank.text
+        print(rank)
+        embed.add_field(name='현재 랭크', value=rank, inline=False)
+
+        topop1 = bs_value[4]
+        print(topop1)
+
+        pvpwin1 = bs_value[5]
+        pvpwin2 = pvpwin1.text
+        print(pvpwin2)
+        embed.add_field(name='PvP 승리', value=pvpwin2, inline=False)
+
+        winratio1 = bs_value[6]
+        winratio2 = winratio1.text
+        print(winratio2)
+        embed.add_field(name='승률', value=winratio2, inline=False)
+
+        pvpkill1 = bs_value[7]
+        pvpkill2 = pvpkill1.text
+        print(pvpkill2)
+        embed.add_field(name='PvP 킬', value=pvpkill2, inline=False)
+
+        pvpkd1 = bs_value[8]
+        pvpkd2 = pvpkd1.text
+        print(pvpkd2)
+        embed.add_field(name='PvP K/D', value=pvpkd2, inline=False)
+
+        time1 = bs_value[11]
+        time2 = time1.text
+        print(time2)
+        embed.add_field(name='플레이타임', value=time2, inline=False)
+        await message.channel.send(embed=embed)
+
     if message.content.startswith('/롤'):
         name = message.content[3:len(message.content)]
 
