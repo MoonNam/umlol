@@ -18,7 +18,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message, value=None):
-    if message.content.startswith("/쓱싹"):
+    if message.content.startswith("/clear"):
         a = message.author.top_role
         if str(message.author.top_role) == "관리자":
             await message.channel.purge(limit=1000)
