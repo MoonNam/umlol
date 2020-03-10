@@ -189,7 +189,7 @@ async def on_message(message, value=None):
         elif str(message.author.top_role) == "으매":
             await message.channel.purge(limit=1000)
         else:
-            await message.channel.send("권한이 없습니다.")
+            await message.channel.send("권한이 없다 으매노 !")
 
 access_token = os.environ["BOT_TOKEN"]
 client.run(access_token)
