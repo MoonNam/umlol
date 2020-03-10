@@ -18,17 +18,6 @@ async def on_ready():
 
 @client.event
 async def on_message(message, value=None):
-    if message.content.startswith("/clear"):
-        a = message.author.top_role
-        if str(message.author.top_role) == "관리자":
-            await message.channel.purge(limit=1000)
-        elif str(message.author.top_role) == "주인":
-            await message.channel.purge(limit=1000)
-        elif str(message.author.top_role) == "으매":
-            await message.channel.purge(limit=1000)
-        else:
-            await message.channel.send("권한이 없다 으매노 !")
-
     if message.content.startswith("/레식"):
         learn1 = message.content.split(" ")
         learn = learn1[1]
