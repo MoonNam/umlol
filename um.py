@@ -179,6 +179,17 @@ async def on_message(message, value=None):
             print("랭크 정보중 등록되지 않은 정보가 있습니다")
             await message.channel.send("정보를 불러올 수 없어요!\n" +
                                        "솔로랭크 또는 자유랭크 배치를 보지 않은 소환사에요")
+            
+    if message.content.startswith("/쓱싹"):
+        a = message.author.top_role
+        if str(message.author.top_role) == "관리자":
+            await message.channel.purge(limit=1000)
+        elif str(message.author.top_role) == "주인":
+            await message.channel.purge(limit=1000)
+        elif str(message.author.top_role) == "으매":
+            await message.channel.purge(limit=1000)
+        else:
+            await message.channel.send("권한이 없습니다.")
 
 access_token = os.environ["BOT_TOKEN"]
 client.run(access_token)
